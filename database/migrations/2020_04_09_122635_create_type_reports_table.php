@@ -15,6 +15,7 @@ class CreateTypeReportsTable extends Migration
     {
         Schema::create('type_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->String("name");
             $table->timestamps();
         });
     }
