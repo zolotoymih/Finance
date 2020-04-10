@@ -16,6 +16,11 @@ class CreateTypeReportsTable extends Migration
         Schema::create('type_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->String("name");
+            $table->string('code');
+            $table->tinyInteger('on_year')->default(0);
+            $table->tinyInteger('on_quarter')->default(0);
+            $table->tinyInteger('on_month')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
