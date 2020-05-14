@@ -13,3 +13,8 @@
 
 Route::get('/', 'MainController@index')->name('index'); //метод index из MainController.php
 
+Route::get('/{name_form}', 'MainController@report')->name('report');
+
+Route::get('/report/reset', 'ResetController@reset')->name('reset_db');
+
+//Route::post('', 'MainController@insert');
