@@ -13,6 +13,11 @@ class MainController extends Controller
         return view('index', compact('reports'));
     }
 
+    public function vovaTest()
+    {
+        return view('index');
+    }
+
     public function report($name_form)
     {
        //$name_form = "".$report->name_form;

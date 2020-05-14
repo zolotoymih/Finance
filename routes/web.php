@@ -15,6 +15,8 @@ Route::get('/', 'MainController@index')->name('index'); //метод index из 
 
 Route::get('/{name_form}', 'MainController@report')->name('report');
 
+Route::get('/vova-test', 'MainController@vovaTest')->name('vova-test');
+
 Route::get('/report/reset', 'ResetController@reset')->name('reset_db');
 
 //Route::post('', 'MainController@insert');

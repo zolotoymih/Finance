@@ -18,6 +18,7 @@
 
 <div class="sidenav">
     <a href="{{route('reset_db')}}">Сбросить проект в начальное состояние</a>
+    <a href="{{ route('vova-test') }}">Vova Test</a>
     <a href="#services">Services</a>
     <a href="#clients">Clients</a>
     <a href="#contact">Contact</a>
