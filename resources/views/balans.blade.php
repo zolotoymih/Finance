@@ -79,11 +79,11 @@
                 <th width="400px" >1</th><th width="50px">2</th><th>3</th><th>4</th>
             </tr>
             <tr class ="col_1" >
-                <td colspan="4" style="text-right">І. НЕФІНАНСОВІ АКТИВИ</td></td>
+                <td colspan="4" style="text-align: left;">І. НЕФІНАНСОВІ АКТИВИ</td>
             </tr>
             <tr class ="col_2">
                 <td >Основні засоби:</td><td><input type="text" class="border-none" name="code" id="code" value="1000" disabled></td>
-                <td class="td_select" id="" ><input type="text" class="border-none" name="A1" id="A1000" value="" disabled></td>
+                <td class="td_select" id=""><input type="text" class="border-none" name="A1" id="A1000" value="" disabled></td>
                 <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1000" value="" disabled></td>
             </tr>
             <tr class ="col_3">

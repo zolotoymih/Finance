@@ -20,6 +20,9 @@ $("body").on("click", ".td_select", function(){
 
 $('.border-none').keypress(function(e) {
     // trap the return key being pressed
+    console.log($(this).val() +"   "+ e.which);
+    console.log("Hello");
+    if (e.keyCode <48 || e.keyCode >57) return false
     if (e.keyCode === 13) {
         // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
         document.execCommand('insertHTML', false, '<br/>');
@@ -30,8 +33,8 @@ $('.border-none').keypress(function(e) {
 		BaseRecord.start($(this));
         BaseRecord.insert($(this).val());
         return false;
-
-    }
+    };
+    //if (){};
 
 });
 
