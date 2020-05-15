@@ -142,8 +142,6 @@
                 <td >Усього за розділом І</td><td>1095</td><td class="td_select" id="A1095" ></td>
                 <td class="td_select" id="P1095"></td>
             </tr>
-
-
             <tr>
                 <td colspan="2" style="text-right">Всього</td><td id="A00"></td><td id="P00"></td>
             </tr>

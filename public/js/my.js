@@ -6,9 +6,9 @@ function adjust_textarea(h) {
 
 
 $(document).ready(function() {
-$("body").on("click", ".td_select", function(){
+$("body").on("click", ".td_select", function(e){
   //BaseRecord.start();
-  //alert("heli");
+  console.log(this+" "+e.target);
 });
 /* $('td').keydown(function(event){
     if(event.keyCode==13){
@@ -20,9 +20,10 @@ $("body").on("click", ".td_select", function(){
 
 $('.border-none').keypress(function(e) {
     // trap the return key being pressed
-    console.log($(this).val() +"   "+ e.which);
-    console.log("Hello");
-    if (e.keyCode <48 || e.keyCode >57) return false
+    // console.log($(this).val() +"   "+ e.which);
+    console.log(e.keyCode);
+    let arrKey = [13,44,48,49,50,51,52,53,54,55,56,57]
+    if (!arrKey.some(x => x==e.keyCode)) return false
     if (e.keyCode === 13) {
         // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
         document.execCommand('insertHTML', false, '<br/>');
@@ -34,8 +35,6 @@ $('.border-none').keypress(function(e) {
         BaseRecord.insert($(this).val());
         return false;
     };
-    //if (){};
-
 });
 
 });
@@ -86,7 +85,7 @@ sum:function(count, AP) {
       return sum;
 	},
 
-     insert:function(value) {
+insert:function(value) {
     //     var ajaxSetting={
     //         method:"post",
     //         url:"",

@@ -82,7 +82,8 @@
                 <td colspan="4" style="text-align: left;">І. НЕФІНАНСОВІ АКТИВИ</td>
             </tr>
             <tr class ="col_2">
-                <td >Основні засоби:</td><td><input type="text" class="border-none" name="code" id="code" value="1000" disabled></td>
+                <td >Основні засоби:</td>
+                <td><input type="text" class="border-none" name="code" id="code" value="1000" disabled></td>
                 <td class="td_select" id=""><input type="text" class="border-none" name="A1" id="A1000" value="" disabled></td>
                 <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1000" value="" disabled></td>
             </tr>
@@ -98,14 +99,14 @@
             </tr>
 
             <tr class ="col_2">
-                <td >Інвестиційна нерухомість:</td><td><input type="text" class="border-none" name="code" id="code" value="1010" disabled></td>
-                <td class="td_select" id="" ><input type="text" class="border-none" name="A1" id="A1010" value="" disabled></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1010" value="" disabled></td>
+                <td >Інвестиційна нерухомість (with div only):</td><td><input type="text" class="border-none" name="code" id="code" value="1010" disabled></td>
+                <td class="td_select" id=""><div class="border-none" contenteditable></div></td>
+                <td class="td_select" id=""><div class="border-none" contenteditable></div></td>
              </tr>
             <tr class ="col_3">
                 <td >первісна вартість</td><td><input type="text" class="border-none" name="code" id="code" value="1011" disabled></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A1" id="A1011" value="" ></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1011" value="" ></td>
+                <td class="td_select" id=""><div class="border-none" data-row="1011" contenteditable></div></td>
+                <td class="td_select" id=""><div class="border-none" data-row="1011" contenteditable></div></td>
             </tr>
             <tr class ="col_3">
                 <td >знос</td><td><input type="text" class="border-none" name="code" id="code" value="1012" disabled></td>
