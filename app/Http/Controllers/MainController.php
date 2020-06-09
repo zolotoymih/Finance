@@ -19,8 +19,6 @@ class MainController extends Controller
 
     public function reports()
     {
-        $reports = TypeReport::get();
-        return view('reports', compact('reports'));
     }
 
     public function report($name_form)

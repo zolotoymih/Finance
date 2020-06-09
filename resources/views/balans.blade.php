@@ -24,7 +24,7 @@
                     {{--                </div>--}}
 
                     <label>
-                        <span> </span><input type="submit" value="Записати"/>
+                        <input type="submit" value="Записати"/>
                     </label>
                     <label>
                         <input type="BUTTON" value="Перевірити"/>
