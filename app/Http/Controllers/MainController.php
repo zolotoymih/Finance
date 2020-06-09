@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $reports = TypeReport::get();
-        return view('index', compact('reports'));
+        return view('index');
     }
 
     public function vovaTest()
@@ -18,11 +17,16 @@ class MainController extends Controller
         return view('index');
     }
 
+    public function reports()
+    {
+        $reports = TypeReport::get();
+        return view('reports', compact('reports'));
+    }
+
     public function report($name_form)
     {
        //$name_form = "".$report->name_form;
-       //dd($name_form);
-        return view($name_form);
+       return view($name_form);
     }
 
     public function insert(Request $request)
