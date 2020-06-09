@@ -43,7 +43,7 @@
 		</div>
 
 		<label>
-		<span> </span><input type="submit" value="Записати" />
+		<span></span><input type="submit" value="Записати" />
 		</label>
 		<label>
 		<input type="BUTTON" value="Перевірити" />
@@ -62,7 +62,6 @@
         @foreach($reports as $report)
             <tr class ="col_2">
                 <td ><a href="{{ route('report', $report->name_form) }}">{{$report->name}}</a></td><td >{{$report->code}}</td>
-
             </tr>
         @endforeach
 

@@ -21,8 +21,8 @@ class MainController extends Controller
     public function report($name_form)
     {
        //$name_form = "".$report->name_form;
-       //dd($name_form);
-        return view($name_form);
+       dd();
+       return view($name_form);
     }
 
     public function insert(Request $request)

@@ -9,6 +9,7 @@
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/my.js"></script>
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/mystyle.css" rel="stylesheet">
@@ -32,7 +33,7 @@
     <a href="#contact">Search</a>
 </div>
 
-<div class="main">
+<div id="app" class="main">
 
         <form class="" action="" method="post">
             <div class="container_report form-style-4">
@@ -99,18 +100,18 @@
 
             <tr class ="col_2">
                 <td >Інвестиційна нерухомість (with div only):</td><td><input type="text" class="border-none" name="code" id="code" value="1010" disabled></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A1" id="A1010" value="" disabled></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1010" value="" disabled></td>
+                <td class="td_select" id=""><div class="border-none" id="A1010" ></div></td>
+                <td class="td_select" id=""><div class="border-none" id="P1010" ></div></td>
              </tr>
             <tr class ="col_3">
                 <td >первісна вартість</td><td><input type="text" class="border-none" name="code" id="code" value="1011" disabled></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A1" id="A1011" value="" ></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1011" value="" ></td>
+                <td class="td_select" id=""><div class="border-none" data-row="1011" id="A1011" contenteditable tabindex="-1">@{{ A1011 }}</div></td>
+                <td class="td_select" id=""><div class="border-none" data-row="1011" id="P1011" contenteditable tabindex="-1">@{{ P1011 }}</div></td>
             </tr>
             <tr class ="col_3">
                 <td >знос</td><td><input type="text" class="border-none" name="code" id="code" value="1012" disabled></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A1" id="A1012" value="" ></td>
-                <td class="td_select" id=""><input type="text" class="border-none" name="A2" id="P1012" value="" ></td>
+                <td class="td_select" id=""><div class="border-none" data-row="1012" id="A1012" contenteditable tabindex="-1">@{{ A1012 }}</div></td>
+                <td class="td_select" id=""><div class="border-none" data-row="1012" id="P1012" contenteditable tabindex="-1">@{{ P1012 }}</div></td>
             </tr>
 
             <tr class ="col_2">
@@ -184,18 +185,7 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<script src="js/myVue.js"></script>
 
 
 <script>
