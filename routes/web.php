@@ -13,7 +13,7 @@
 
 Route::get('/', 'MainController@index')->name('index'); //метод index из MainController.php
 
-Route::get('/reports', 'MainController@reports')->name('reports');
+Route::get('/reports', 'ReportController@index')->name('reports');
 
 Route::get('/{name_form}', 'MainController@report')->name('report');
 
