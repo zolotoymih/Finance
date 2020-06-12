@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\KindReport;
 use App\Report;
 use App\TypeReport;
 use Illuminate\Http\Request;
@@ -15,8 +16,10 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = TypeReport::get();
-        return view('reports', compact('reports'));
+        $kind_reports = KindReport::get();
+        $type_reports = TypeReport::get();
+        $reports = Report::where('edrpou_id', 1)->get();
+        return view('reports', compact('type_reports', 'kind_reports', 'reports'));
     }
 
     /**
@@ -48,7 +51,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        //
+        dd();
     }
 
     /**
@@ -82,6 +85,7 @@ class ReportController extends Controller
      */
     public function destroy(Report $report)
     {
-        //
+        $report->delete();
+        return redirect()->route('reports.index');
     }
 }

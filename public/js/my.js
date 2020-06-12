@@ -11,12 +11,64 @@ var BaseRecord=(function () {
             if(e.which != 13){BaseRecord.checkPressedKeyNumber(e)}
             else BaseRecord.actionEnterPressed(this);
         });
-        $("tr").on("blur", ".border-none", function () {
-          BaseRecord.pasteBeatyNumber(this);
-        });
 
+        $("tr").on("blur", ".border-none", function () {BaseRecord.pasteBeatyNumber(this);});
+
+        $('select[name="kind_reports"]').change(function(){
+
+            $('select[name="type_reports"]').prop('disabled', false);
+
+            //let optionsAll = $('select[name="type_reports"]').find('option').toArray();
+            console.log($('select[name="type_reports"]>option'));
+            $('select[name="type_reports"]>option').attr('style', (ind, atr) => {
+                //console.log(this);
+            });
+            let activeIndex = this.value;
+            /*
+                        for (let option in optionsAll){
+                            //console.log(option, optionsAll[option]);
+                            //console.log(option.dataset.kindReport);
+                            if (optionsAll[option].dataset.kindReport != activeIndex) {
+                                console.log(optionsAll[option]);
+                                $(optionsAll[option]).attr('style',"display:none");
+                            }
+                        }
+            */
+        });
+/*
+        $('select[name="kind_reports"]').change(function(){
+            $('select[name="type_reports"]').prop('disabled', false);
+        });
+*/
     });
+
+
     return {
+
+        activateSelect:function(select){
+
+            $('select[name="type_reports"]').prop('disabled', false);
+
+            //let optionsAll = $('select[name="type_reports"]').find('option').toArray();
+            $('select[name="type_reports"]').find('option').attr('style', (ind, atr) => {
+                console.log(this);
+            });
+            let activeIndex = select.value;
+
+            console.log($('select[name="type_reports"]').find('option').attr('data-kind-report'));
+
+            /*
+                        for (let option in optionsAll){
+                            //console.log(option, optionsAll[option]);
+                            //console.log(option.dataset.kindReport);
+                            if (optionsAll[option].dataset.kindReport != activeIndex) {
+                                console.log(optionsAll[option]);
+                                $(optionsAll[option]).attr('style',"display:none");
+                            }
+                        }
+            */
+        },
+
         pasteBeatyNumber:function(e){
             let str = $(e).val();
             if (str != "") {

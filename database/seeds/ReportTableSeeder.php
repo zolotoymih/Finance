@@ -14,53 +14,29 @@ class ReportTableSeeder extends Seeder
         DB::table('reports')->insert([
 
             [
-                'type_report_id' => '1',
+                'type_report_id' => '0',
                 'period_id' => '4',
-                'row' => '1000',
-                'state' => 'A',
-                'value' => '400',
+                'edrpou_id' => '1',
             ],
             [
                 'type_report_id' => '1',
                 'period_id' => '4',
-                'row' => '1001',
-                'state' => 'A',
-                'value' => '100',
+                'edrpou_id' => '1',
             ],
             [
-                'type_report_id' => '1',
+                'type_report_id' => '2',
                 'period_id' => '4',
-                'row' => '1002',
-                'state' => 'A',
-                'value' => '300',
+                'edrpou_id' => '1',
             ],
             [
-                'type_report_id' => '1',
+                'type_report_id' => '3',
                 'period_id' => '4',
-                'row' => '1010',
-                'state' => 'A',
-                'value' => '1100',
+                'edrpou_id' => '1',
             ],
             [
-                'type_report_id' => '1',
+                'type_report_id' => '4',
                 'period_id' => '4',
-                'row' => '1011',
-                'state' => 'A',
-                'value' => '500',
-            ],
-            [
-                'type_report_id' => '1',
-                'period_id' => '4',
-                'row' => '1012',
-                'state' => 'A',
-                'value' => '600',
-            ],
-            [
-                'type_report_id' => '1',
-                'period_id' => '4',
-                'row' => '1095',
-                'state' => 'A',
-                'value' => '1500',
+                'edrpou_id' => '1',
             ],
         ]);
     }

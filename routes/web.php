@@ -13,9 +13,9 @@
 
 Route::get('/', 'MainController@index')->name('index'); //метод index из MainController.php
 
-Route::get('/reports', 'ReportController@index')->name('reports');
+Route::resource('/reports', 'ReportController');
 
-Route::get('/{name_form}', 'MainController@report')->name('report');
+//Route::get('/{name_form}', 'ReportController@show')->name('report');
 
 Route::get('/vova-test', 'MainController@vovaTest')->name('vova-test');
 

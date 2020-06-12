@@ -7,8 +7,8 @@
 @section('content')
 
     <div class="main button_container">
-        <button onclick="document.location='{{route('reports')}}'" class="button_main"><span>Звітніть</span></button>
-        <button onclick="document.location='{{route('reports')}}'" class="button_main"><span>Грошове</span></button>
+        <button onclick="document.location='{{route('reports.index')}}'" class="button_main"><span>Звітніть</span></button>
+        <button class="button_main"><span>Грошове</span></button>
     </div>
 
 @endsection
