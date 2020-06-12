@@ -1,0 +1,872 @@
+//список отчетов-форм
+var reportArray = {
+    "f1": 1,
+    "f2": 2,
+    "f3": 3,
+    "f4_1": "4_1",
+    "f4_2": "4_2",
+    "f4_3": "4_3",
+    "f4_3_1": "4_3_1",
+    "f4_4": "4_4",
+    "f7": 7,
+    "f7_1": "7_1",
+    "f_d9": "_d9",
+    "f_d11": "_d11",
+    "f_d20": "_d20",
+    "f_d21": "_d21",
+    "f_d22": "_d22",
+    "f_d27": "_d27",
+    "12_d7": "12_d7",
+    "12_d8": "12_d8",
+    "12_dox_m": "12_dox_m",
+    "12_dox_k": "12_dox_k",
+    "12_vid_m": "12_vid_m",
+    "12_vid_k": "12_vid_k",
+    "12_d9": "12_d9",
+    "12_source_m": "12_source_m",
+    "12_source_k": "12_source_k",
+    "12_cred_m": "12_cred_m",
+    "12_cred_k": "12_cred_k",
+    "12_zved": "12_zved",
+    "12_d10": "12_d10",
+    "12_d11": "12_d11",
+    "52_dox": "52_dox",
+    "52_vid": "52_vid",
+    "52_cred": "52_cred",
+    "52_d9": "52_d9",
+    "52_d10": "52_d10",
+    "52_dSal": "52_dSal",
+    "41_d5": "41_d5",
+    "41cred": "41cred",
+    "52_source": "52_source",
+    "41source": "41source",
+    "41vid": "41vid",
+    "41dox": "41dox",
+    "41_d15": "41_d15",
+    "41_d16": "41_d16",
+    "41_d7": "41_d7",
+    "41_d17": "41_d17",
+    "41_d9": "41_d9",
+    "41_d12": "41_d12",
+    "41_d11": "41_d11",
+    "41_d10": "41_d10",
+    "41_d22": "41_d22",
+    "41_d6": "41_d6",
+    "41doxDB": "41doxDB"
+};
+
+//определения типа отчета
+function reportSelector() {
+
+    var str = window.location.href;
+    var curRepNumber;
+    for (var key in reportArray) {
+        if (str.indexOf(key) >= 0) {
+            curRepNumber = key;
+        }
+    }
+    return curRepNumber;
+}
+
+//получение данных
+function getState(grp) {
+    var parameters = $('#PARAMETRS').val();
+    return {
+        parameters: parameters,
+        p_grp: grp
+    };
+}
+
+//вариативность возможности редактирования при различный условиях
+function DisableEdit(arg) {
+    var mode = $('#MODE').val();
+    var type = $('#TYPE').val();
+    var typeArray = [1, 2, 3, 4, 5, 14, 15, 16, 17, 18];
+    var exist = typeArray.indexOf(parseInt(type)) >= 0;
+    var grid_type = $('#GRID_TYPE').val();
+    var input = arg.container.find("input");
+    var className = input.context.className;
+
+    var gridId = "#" + arg.sender.wrapper[0].id;
+
+    if (!arg.model.ID) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+    } else if (mode == "RO" || exist && grid_type != 1) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+
+    } else if (arg.container.find("input").val() == "" || arg.container.find("input").val() == "X" && className != "k-dirty-cell k-edit-cell") {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+    }
+    if (arg.container.find("input").val() == "0,00") {
+        arg.container.find("input").val("");
+    }
+    if (arg.container.find("input").val() != "0,00" || arg.container.find("input").val() != "") {
+        arg.container.find("input").select();
+    }
+}
+
+//сохранение внесенных изменений
+
+function saveSomeChanges(row, repIdForTab) {
+    var pId = $(row).find('#p_id').html();
+    var pIdKod = $(row).find('#id_kod').html();
+    var p_obl = $(row).find('#p_obl').html();
+    var p_kpk = $(row).find('#p_kpk').html();
+    var p_idrec = $(row).find('#p_idrec').html();
+    var p_bud_vid_id = $(row).find('#p_bud_vid_id').html();
+    var pColumn1 = getRowVal("#column1", "#COLUM1", row);
+    var pColumn2 = getRowVal("#column2", "#COLUM2", row);
+    var pColumn3 = getRowVal("#column3", "#COLUM3", row);
+    var pColumn4 = getRowVal("#column4", "#COLUM4", row);
+    var pColumn5 = getRowVal("#column5", "#COLUM5", row);
+    var pColumn6 = getRowVal("#column6", "#COLUM6", row);
+    var pColumn7 = getRowVal("#column7", "#COLUM7", row);
+    var pColumn8 = getRowVal("#column8", "#COLUM8", row);
+    var pColumn9 = getRowVal("#column9", "#COLUM9", row);
+    var pColumn10 = getRowVal("#column10", "#COLUM10", row);
+    var pColumn11 = getRowVal("#column11", "#COLUM11", row);
+    var pColumn12 = getRowVal("#column12", "#COLUM12", row);
+    var pColumn13 = getRowVal("#column13", "#COLUM13", row);
+    var pColumn14 = getRowVal("#column14", "#COLUM14", row);
+    var pColumn15 = getRowVal("#column15", "#COLUM15", row);
+    var pColumn16 = getRowVal("#column16", "#COLUM16", row);
+    var pColumn17 = getRowVal("#column17", "#COLUM17", row);
+    var pColumn18 = getRowVal("#column18", "#COLUM18", row);
+    var pColumn19 = getRowVal("#column19", "#COLUM19", row);
+    var pColumn20 = getRowVal("#column20", "#COLUM20", row);
+    var pColumn21 = getRowVal("#column21", "#COLUM21", row);
+    var pColumn22 = getRowVal("#column22", "#COLUM22", row);
+    var pColumn23 = getRowVal("#column23", "#COLUM23", row);
+
+    var data = new FormData();
+    data.append("p_id", pId);
+    data.append("p_id_kod", pIdKod);
+    data.append("p_obl", p_obl);
+    data.append("p_kpk", p_kpk);
+    data.append("p_idrec", p_idrec);
+    data.append("p_bud_vid_id", p_bud_vid_id);
+    data.append("p_column1", pColumn1);
+    data.append("p_column2", pColumn2);
+    data.append("p_column3", pColumn3);
+    data.append("p_column4", pColumn4);
+    data.append("p_column5", pColumn5);
+    data.append("p_column6", pColumn6);
+    data.append("p_column7", pColumn7);
+    data.append("p_column8", pColumn8);
+    data.append("p_column9", pColumn9);
+    data.append("p_column10", pColumn10);
+    data.append("p_column11", pColumn11);
+    data.append("p_column12", pColumn12);
+    data.append("p_column13", pColumn13);
+    data.append("p_column14", pColumn14);
+    data.append("p_column15", pColumn15);
+    data.append("p_column16", pColumn16);
+    data.append("p_column17", pColumn17);
+    data.append("p_column18", pColumn18);
+    data.append("p_column19", pColumn19);
+    data.append("p_column20", pColumn20);
+    data.append("p_column21", pColumn21);
+    data.append("p_column22", pColumn22);
+    data.append("p_column23", pColumn23);
+    typeof repIdForTab != "undefined" ? data.append("p_type", repIdForTab) : data.append("p_type", 0);
+
+    $.ajax({
+        type: "POST",
+        url: '/barsapp/Soer/Budget/ChangeGridRowF' + reportArray[reportSelector()],
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function() {
+            $("span.k-dirty").remove();
+        },
+        error: function(xhr, status, p3, p4) {
+            var err = "Error " + " " + status + " " + p3 + " " + p4;
+            if (xhr.responseText && xhr.responseText[0] === "{")
+                err = JSON.parse(xhr.responseText).Message;
+            barsUiError({
+                text: err
+            });
+
+        }
+    });
+}
+
+//cell value getting
+function getRowVal(val1, val2, row) {
+    var val3 = val2.substr(1);
+    var input = $("[name='" + val3 + "']").val();
+    if (input && input != "") {
+        var curVal = parseFloat(input).toFixed(2);
+        if (curVal != "NaN") {
+            curVal = input.toString().match(/^-?\d+(?:\,\d{0,2})?/)[0];
+            input = curVal;
+        }
+        return input;
+    } else if (input == "") {
+        return "0,00";
+    } else if (typeof $(row).find("[curfield=" + val1.substr(1) + "]").html() == "string") {
+        input = $(row).find("[curfield=" + val1.substr(1) + "]").html();
+        input == "" ? input = "0" : input;
+        return input;
+    } else {
+        return $(row).find(val1).html();
+    }
+}
+
+// "X" value adding instead of empty spaces
+function onDataBinding() {
+    var columns = ['COLUM1', 'COLUM2', 'COLUM3', 'COLUM4', 'COLUM5', 'COLUM6', 'COLUM7', 'COLUM8', 'COLUM9', 'COLUM10', 'COLUM11', 'COLUM12', 'COLUM13', 'COLUM14', 'COLUM15', 'COLUM16', 'COLUM17', 'COLUM18', 'COLUM19', 'COLUM20'];
+
+    var grid = this;
+    var dataSource = grid.dataSource;
+    var data = dataSource.data();
+
+    for (var i = 0; i < data.length; i++) {
+        var dataItem = data[i];
+        for (var j = 0; j < columns.length; j++) {
+            if (dataItem[columns[j]] == null) {
+                dataItem[columns[j]] = 'X';
+            }
+        }
+    }
+}
+
+//grid data adding
+function onDataBound() {
+    var grid = this;
+    if ($(".k-footer-template").length > 1) {
+        $(".k-footer-template").last().remove();
+    }
+    grid.table.find(".k-grid-header").after(grid.table.find(".k-footer-template"));
+    grid.tbody.find('>tr').each(function() {
+        var dataItem = grid.dataItem(this);
+
+        if (dataItem.TYPE_ROW != null) {
+            $(this).addClass('row-type-' + dataItem.TYPE_ROW);
+        }
+    });
+}
+
+function resizeGrid() {
+    var gridElement = $("#grid");
+    var dataArea = gridElement.find(".k-grid-content");
+    var newHeight = gridElement.parent().innerHeight() - 2;
+    var diff = gridElement.innerHeight() - dataArea.innerHeight();
+    gridElement.height(newHeight);
+    dataArea.height(newHeight - diff);
+}
+
+//grid data adding, for scrolled grids with fixed height
+function onDataBoundScrolled() {
+    var grid = this;
+    if ($(".k-footer-template").length > 1) {
+        $(".k-footer-template").last().remove();
+    }
+    grid.tbody.find('>tr').each(function() {
+        var dataItem = grid.dataItem(this);
+        if (dataItem.TYPE_ROW != null) {
+            $(this).addClass('row-type-' + dataItem.TYPE_ROW);
+        }
+    });
+    var body = grid.element.find(".k-grid-content").detach();
+    var footer = grid.element.find(".k-grid-footer").detach();
+    grid.element.append(footer).append(body);
+    resizeGrid();
+}
+
+function importDbf(urlPost) {
+
+    var input = $('#btImportDbf');
+    var doc = input.get(0).files[0]
+        , fileName = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    var p_id = $('#ID').val();
+
+    //перевірка чи це dbf
+    var ext = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
+    if (ext === "dbf") {
+        var data = new FormData();
+        data.append("file", doc);
+        data.append("p_id", p_id);
+        $.ajax({
+            type: "POST",
+            url: urlPost,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: succesimportDbf,
+            error: function(xhr, status, p3, p4) {
+
+                var err = "Error " + " " + status + " " + p3 + " " + p4;
+                if (xhr.responseText && xhr.responseText[0] === "{")
+                    err = JSON.parse(xhr.responseText).Message;
+                barsUiError({
+                    text: err
+                });
+                $('#btImportDbf').val("");
+            }
+        });
+    } else {
+        barsUiError({
+            text: "Завантажте DBF файл! Ви завантажуєте " + fileName
+        });
+        $('#btImportDbf').val("");
+    }
+}
+
+function importExcel(urlPost) {
+    var input = $('#btnImportExcel');
+    var doc = input.get(0).files[0]
+        , fileName = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    var p_id = $('#ID').val();
+
+    //перевірка чи це excel file
+    var ext = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
+    if (ext === "xls" || ext === "xlsx") {
+        var data = new FormData();
+        data.append("file", doc);
+        data.append("p_id", p_id);
+        $.ajax({
+            type: "POST",
+            url: urlPost,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function(result) {
+                if (result.code == 0) {
+                    barsUiAlert({
+                        text: result.text,
+                        title: result.title
+                    });
+                } else {
+                    barsUiError({
+                        text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+                        title: result.title,
+                        func: reload
+                    });
+                }
+                if (typeof gridReload === "function") {
+                    gridReload();
+                }
+            },
+            error: function(xhr, status, p3, p4) {
+
+                var err = "Error " + " " + status + " " + p3 + " " + p4;
+                if (xhr.responseText && xhr.responseText[0] === "{")
+                    err = JSON.parse(xhr.responseText).Message;
+                barsUiError({
+                    text: err
+                });
+                $('#btnImportExcel').val("");
+            }
+        });
+    } else {
+        barsUiError({
+            text: "Завантажте Microsoft Excel файл! Ви завантажуєте " + fileName
+        });
+        $('#btnImportExcel').val("");
+    }
+}
+;
+function importPdf(urlPost) {
+    var input = $('#btnImportPdf');
+    var doc = input.get(0).files[0]
+        , fileName = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    var p_id = $('#ID').val();
+
+    //перевірка чи це pdf file
+    var ext = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
+    if (ext === "pdf") {
+        var data = new FormData();
+        data.append("file", doc);
+        data.append("p_id", p_id);
+        $.ajax({
+            type: "POST",
+            url: urlPost,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function(result) {
+                if (result.code == 0) {
+                    barsUiAlert({
+                        text: result.text,
+                        title: result.title
+                    });
+                } else {
+                    barsUiError({
+                        text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+                        title: result.title,
+                        func: reload
+                    });
+                }
+                if (typeof gridReload === "function") {
+                    gridReload();
+                }
+            },
+            error: function(xhr, status, p3, p4) {
+
+                var err = "Error " + " " + status + " " + p3 + " " + p4;
+                if (xhr.responseText && xhr.responseText[0] === "{")
+                    err = JSON.parse(xhr.responseText).Message;
+                barsUiError({
+                    text: err
+                });
+                $('#btnImportExcel').val("");
+            }
+        });
+    } else {
+        barsUiError({
+            text: "Завантажте PDF файл! Ви завантажуєте " + fileName
+        });
+        $('#btnImportPdf').val("");
+    }
+}
+;
+function MakeConsoleid(id) {
+    var p_id = $('#ID').val();
+    var data = new FormData();
+    data.append("p_id", p_id);
+    $.ajax({
+        type: "POST",
+        url: '/barsapp/Soer/Financial/CreateConsolidReport',
+        contentType: false,
+        processData: false,
+        data: data,
+        success: succesimportDbf,
+        error: function(xhr, status, p3, p4) {
+
+            var err = "Error " + " " + status + " " + p3 + " " + p4;
+            if (xhr.responseText && xhr.responseText[0] === "{")
+                err = JSON.parse(xhr.responseText).Message;
+            barsUiError({
+                text: err
+            });
+            $('#btImportDbf').val("");
+        }
+    });
+}
+
+function succesimportDbf(result) {
+    if ($.inArray($("#formName").html(), ["f44_d4_f7", "f44_d4_f7_1", "f52_d2_f7", "f52_d2_f7_1", "F52_vid"]) != -1) {
+        $("#gridDfb").data('kendoGrid') != null ? $("#gridDfb").data('kendoGrid').dataSource.read() : gridReload();
+        if (result.code != 0) {
+            barsUiError({
+                text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+                title: result.title /*, func: reload*/
+            });
+        }
+        return;
+    }
+    var reload = function() {
+        gridReload();
+    };
+
+    if (result.code == 0) {
+        reload();
+    } else {
+        barsUiError({
+            text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+            title: result.title,
+            func: reload
+        });
+    }
+}
+
+//grid reloading action
+function gridReload() {
+    if (typeof gridParam == "function") {
+        var gridsName = new gridParam();
+        gridsName.reloadGrid();
+    } else {
+        window.location.reload();
+    }
+
+}
+
+function CheckReport(id) {
+    var templateName = $("#templateName").text().trim();
+
+    var url = bars.config.appName + '/soer/ReportsPreview/CheckReportPreview?id=' + id + '&currenttemplateName=' + templateName.replace(' ', '_') + '&partial=true';
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+function ShowReportTree(id) {
+    var url = '/barsapp/soer/Financial/TreeReports?p_rep_id=' + id + '&partial=true';
+
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+function ShowReportTreeTreasurer(id) {
+
+    var url = '/barsapp/soer/FinancialTreasurer/TreeReports?tab=grid&id=' + id + '&mode=' + $("#MODE").val() + '&partial=true';
+    console.log('budgetIncell', url);
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+function GetSignatories(id) {
+    var url = bars.config.appName + '/soer/ReportsPreview/SignatoriesSelector?id=' + id + '&partial=true';
+    barsDialogModal({
+        url: url,
+        height: 370,
+        width: 750
+    });
+}
+
+function GetSignatoriesZero(id) {
+    var url = bars.config.appName + '/soer/ReportsPreview/SignatoriesSelectorZero?id=' + id + '&partial=true';
+    barsDialogModal({
+        url: url,
+        height: 410,
+        width: 750
+    });
+}
+
+function DownloadReport(id) {
+    var templateName = $("#templateName").text().trim();
+    var url = bars.config.appName + '/soer/ReportsPreview/PrintPreview?id=' + id + '&currenttemplateName=' + templateName.replace(' ', '_') + '&partial=true';
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+;
+function GetCodes(id) {
+    var formName = $("#formName").text().trim();
+    var url = bars.config.appName + '/soer/ReportsPreview/CodeSelector?formName=' + formName + '&id=' + id + '&partial=true';
+    barsDialogModal({
+        url: url,
+        height: 200
+    });
+}
+
+//Друк (Аналітика) modified version for cons frx: starting from shifted reports: _d22
+function GetCodesPrntAnalitic(id) {
+    var templateName = $("#templateName").text().trim();
+    var url = bars.config.appName + '/soer/ReportsPreview/PrintReportFrxPreview?id=' + id + '&currenttemplateName=' + templateName.replace(' ', '_') + '&code=cons' + '&partial=true';
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+function DownloadReportByCode(id, code) {
+    var templateName = $("#templateName").text().trim();
+    var url = bars.config.appName + '/soer/ReportsPreview/PrintReportFrxPreview?id=' + id + '&currenttemplateName=' + templateName.replace(' ', '_') + '&code=' + code + '&partial=true';
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+//подсуммировать данные
+function MakeLoad(id) {
+    var p_id = $('#ID').val();
+    var data = new FormData();
+    data.append("p_id", p_id);
+    $.ajax({
+        type: "POST",
+        url: '/barsapp/Soer/Budget/CreateDkuDataLoadReport',
+        contentType: false,
+        processData: false,
+        data: data,
+        success: successResult,
+        error: function(xhr, status, p3, p4) {
+            var err = "Error " + " " + status + " " + p3 + " " + p4;
+            if (xhr.responseText && xhr.responseText[0] === "{")
+                err = JSON.parse(xhr.responseText).Message;
+            barsUiError({
+                text: err
+            });
+            $('#loadDkuData').val("");
+        }
+    });
+}
+
+function successResult(result) {
+    if (result.code == 0) {
+        var reload = function() {
+            window.location.reload();
+        };
+        //var url = '@Html.Action("F2")';
+        barsUiAlert({
+            text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+            title: result.title,
+            func: reload
+        });
+    } else {
+        barsUiError({
+            text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+            title: result.title
+        });
+    }
+}
+;
+var changeMode = "RO";
+var linkEnabled = true;
+// внешняя переменная для блокировки параллельных ajax запросов
+//изменение статуся с целью подписи
+function ChangeSignStatus(id) {
+    if (!linkEnabled) {
+        return;
+    }
+    linkEnabled = false;
+    var singOper = "SIGN_OPER";
+    var sessVal = "true";
+    $.ajax({
+        type: "POST",
+        url: '/barsapp/Soer/Financial/ChangeStatusForSigning',
+        data: {
+            'id': id,
+            'changeMode': changeMode,
+            'singOper': singOper,
+            'sessVal': sessVal
+        },
+        success: function(result) {
+            if (result.code > 0) {
+                barsUiError({
+                    text: "<div style=\"text-align: left;white-space: pre-line;\"> " + result.text + "</div>",
+                    title: result.title
+                });
+                return;
+            }
+
+            if (alert('Форму було підписано та передано на наступний етап')) {} else
+                window.location.reload();
+        },
+        error: function() {
+        },
+        complete: function() {
+            linkEnabled = true;
+        }
+    });
+}
+
+function ChangeSignStatWithDialog(id) {
+    barsUiConfirm({
+        text: "Ви дійсно бажаєте надіслати на підпис?",
+        title: " Увага!",
+        func: function() {
+            ChangeSignStatus(id);
+        }
+    });
+}
+
+//отображение истории внесенных изменений
+function showLogReport(id) {
+    var url = '/barsapp/soer/Financial/LogReports?id=' + id + '&partial=true';
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+function MakeSum(id) {
+    var p_id = $('#ID').val();
+    var data = new FormData();
+    data.append("p_id", p_id);
+    $.ajax({
+        type: "POST",
+        url: '/barsapp/Soer/Financial/CreateSumReport',
+        contentType: false,
+        processData: false,
+        data: data,
+        success: succesimportDbf,
+        error: function(xhr, status, p3, p4) {
+
+            var err = "Error " + " " + status + " " + p3 + " " + p4;
+            if (xhr.responseText && xhr.responseText[0] === "{")
+                err = JSON.parse(xhr.responseText).Message;
+            barsUiError({
+                text: err
+            });
+            $('#btImportDbf').val("");
+        }
+    });
+}
+
+//make focused elemet selected
+$(function() {
+    var focusedElement;
+    $(document).on('focus', 'input', function() {
+        if (focusedElement == this)
+            return;
+        //already focused, return so user can now place cursor at specific point in input.
+        focusedElement = this;
+        setTimeout(function() {
+            focusedElement.select();
+        }, 50);
+        //select all text in any field on focus for easy re-entry. Delay sightly to allow focus to "stick" before selecting.
+    });
+});
+
+//custom editor for a grid
+function decimalFormater(container, options) {
+    $("span.k-dirty").remove();
+    $('<input maxlength="16" name="' + options.field + '"/>').appendTo(container).kendoNumericTextBox({
+        round: false,
+        format: "n2",
+        spinners: false,
+        change: function() {
+            if (this.value() == null) {
+                this.value(0);
+                this.trigger("change");
+            }
+            var grid = $("#grid").data("kendoGrid");
+            var row = grid.editable.element.parent();
+            saveSomeChanges(row);
+        }
+    }).data("kendoNumericTextBox");
+}
+
+//custom editor for a tab grid
+function decimalFormaterForTab(container, options) {
+    $("span.k-dirty").remove();
+    $('<input maxlength="16" name="' + options.field + '"/>').appendTo(container).kendoNumericTextBox({
+        round: false,
+        format: "n2",
+        spinners: false,
+        change: function() {
+            if (this.value() == null) {
+                this.value(0);
+                this.trigger("change");
+            }
+            var grid = $("#gridTab").data("kendoGrid");
+            var row = grid.editable.element.parent();
+
+            var repIdForTab = 1;
+            saveSomeChanges(row, repIdForTab);
+        }
+    }).data("kendoNumericTextBox");
+}
+
+//grid data adding for a tab grid
+function onDataBoundTab() {
+    var grid = this;
+    if ($("#gridTab > table > tfoot > tr.k-footer-template").length > 1) {
+        $("#gridTab > table > tfoot > tr.k-footer-template").last().remove();
+    }
+    var body = grid.element.find(".k-grid-content").detach();
+    var footer = grid.element.find(".k-grid-footer").detach();
+    grid.element.append(footer).append(body);
+
+    grid.tbody.find('>tr').each(function() {
+        var dataItem = grid.dataItem(this);
+
+        if (dataItem.TYPE_ROW != null) {
+            $(this).addClass('row-type-' + dataItem.TYPE_ROW);
+        }
+    });
+}
+
+function downloadReportPreview(id) {
+    var templateName = $("#templateName").text().trim();
+    var url = bars.config.appName + '/soer/ReportsPreview/PrintReportFrxPreview?id=' + id + '&currenttemplateName=' + templateName.replace(' ', '_') + '&partial=true';
+    barsFullScreenDialogModal({
+        url: url
+    });
+}
+
+//custom edit with EDIT_COL
+function DisableEditByParam(arg) {
+    var mode = $('#MODE').val();
+    var type = $('#TYPE').val();
+    var typeArray = [1, 2, 3, 4, 5, 14, 15, 16, 17, 18];
+    var exist = typeArray.indexOf(parseInt(type)) >= 0;
+    var grid_type = $('#GRID_TYPE').val();
+    var input = arg.container.find("input");
+    var className = input.context.className;
+
+    var currentCell = arg.container[0].attributes.curfield.value;
+    currentCell = currentCell.replace("column", "");
+    //1 - open cell for editing, 0 - close ability to edit cell
+    var openForEdit;
+    arg.model["EDIT_COL" + currentCell] == 1 ? openForEdit = true : openForEdit = false;
+
+    var gridId = "#" + arg.sender.wrapper[0].id;
+    if (!arg.model.ID) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+    } else if (mode == "RO" || (exist && grid_type != 1)) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+        return;
+    } else if (!openForEdit) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+        return;
+    } else if (arg.container.find("input").val() == "" || arg.container.find("input").val() == "X" && className != "k-dirty-cell k-edit-cell") {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+    }
+    if (arg.container.find("input").val() == "0,00") {
+        arg.container.find("input").val("");
+    }
+    if (arg.container.find("input").val() != "0,00" || arg.container.find("input").val() != "") {
+        arg.container.find("input").select();
+    }
+}
+
+function decimalFormaterVal(container, options) {
+    $("span.k-dirty").remove();
+    $('<input maxlength="16" name="' + options.field + '"/>').appendTo(container).kendoNumericTextBox({
+        round: false,
+        format: "n2",
+        spinners: false,
+        change: function(e) {
+            if (this.value() == null) {
+                this.value(0);
+                this.trigger("change");
+            }
+
+            if (typeof e.sender.element.closest('div.k-grid[data-role="grid"]').attr('id') !== "string") {
+                return;
+            }
+
+            var gridName = "#" + e.sender.element.closest('div.k-grid[data-role="grid"]').attr('id');
+            var grid = $(gridName).data("kendoGrid");
+            var row = grid.editable.element.parent();
+            var param = {
+                "kfk": $(row).find('#p_kfk').html(),
+                "kpk": $(row).find('#p_kpk').html(),
+                "kekv": $(row).find('#p_kekv').html(),
+                "type": $(row).find('#p_type').html(),
+                "fon": $(row).find('#p_fon').html(),
+                "kpkvkmb": $(row).find('#p_kpkvkmb').html(),
+                "tab": $(row).find('#p_tab').html()
+            };
+            console.log('params', param)
+            var repIdForTab = "p_kfk=" + param.kfk + "/" + "p_kpk=" + param.kpk + "/" + "p_kekv=" + param.kekv + "/" + "p_type=" + param.type + "/" + "p_kpkvkmb=" + param.kpkvkmb + "/" + "p_fon=" + param.fon + "/" + "p_tab=" + param.tab;
+            saveSomeChanges(row, repIdForTab);
+        }
+    }).data("kendoNumericTextBox");
+}
+
+//custom edit with EDIT_COL in simple way
+function DisEditSimple(arg) {
+    var mode = $('#MODE').val();
+    var input = arg.container.find("input");
+    var className = input.context.className;
+
+    var currentCell = arg.container.find("input[data-role='numerictextbox']").attr("name").toLowerCase();
+    // arg.container.find("input").attr("name").toLowerCase();
+    currentCell = currentCell.replace("colum", "");
+    //1 - open cell for editing, 0 - close ability to edit cell
+    var openForEdit;
+    arg.model["EDIT_COL" + currentCell] == 1 ? openForEdit = true : openForEdit = false;
+
+    var gridId = "#" + arg.sender.wrapper[0].id;
+    if (!arg.model.ID) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+    } else if (mode == "RO") {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+        return;
+    } else if (!openForEdit) {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+        return;
+    } else if (arg.container.find("input").val() == "" || arg.container.find("input").val() == "X" && className != "k-dirty-cell k-edit-cell") {
+        $(gridId).data("kendoGrid").closeCell(arg.container);
+    }
+    if (arg.container.find("input").val() == "0,00") {
+        arg.container.find("input").val("");
+    }
+    if (arg.container.find("input").val() != "0,00" || arg.container.find("input").val() != "") {
+        arg.container.find("input").select();
+    }
+}
