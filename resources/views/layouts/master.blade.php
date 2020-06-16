@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
 
     <script src="js/jquery.min.js"></script>
@@ -19,6 +20,7 @@
 <body>
 
 <div class="sidenav">
+   <div class="date" style="color: #adb5bd">{{ date('Y-m-d') }}</div>
 <a href="{{route('index')}}">Главная</a>
 <a href="{{route('reset_db')}}">Сбросить проект в начальное состояние</a>
 <a href="{{ route('vova-test') }}">Vova Test</a>

@@ -68,11 +68,11 @@ body {
 }
 
 
-label {
-	margin: 0 0 2px 12px ;
-	padding: 0 0 0 3px;
+/*label {*/
+/*	margin: 0 0 2px 12px ;*/
+/*	padding: 0 0 0 3px;*/
 
-}
+/*}*/
 .name_report{
 	width: 250px;
 }

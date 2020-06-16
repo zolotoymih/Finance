@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\KindReport;
+use App\Period;
 use App\Report;
 use App\TypeReport;
 use Illuminate\Http\Request;
@@ -18,8 +19,9 @@ class ReportController extends Controller
     {
         $kind_reports = KindReport::get();
         $type_reports = TypeReport::get();
+        $periods = Period::where('year', 2020)->get();
         $reports = Report::where('edrpou_id', 1)->get();
-        return view('reports', compact('type_reports', 'kind_reports', 'reports'));
+        return view('reports', compact('type_reports', 'kind_reports', 'reports', 'periods'));
     }
 
     /**
@@ -40,7 +42,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request['kind_reports'];
     }
 
     /**
@@ -51,7 +53,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        dd();
+        dd('show report');
     }
 
     /**

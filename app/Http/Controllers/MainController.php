@@ -17,20 +17,9 @@ class MainController extends Controller
         return view('index');
     }
 
-    public function reports()
-    {
-    }
-
     public function report($name_form)
     {
        //$name_form = "".$report->name_form;
        return view($name_form);
-    }
-
-    public function insert(Request $request)
-    {
-        //$name_form = "".$report->name_form;
-        //dd($request);
-        //return view($name_form);
     }
 }
