@@ -5,6 +5,19 @@ function adjust_textarea(h) {
 
 $(document).ready(function () {
 
+    let buttonsEdit = document.querySelectorAll('.button-edit');
+    let existedReports = $(buttonsEdit).map((i, e) => +$(e).val()).get();
+
+    $(buttonsEdit).map((i, e) => {
+        console.log($(e).data('type-report'));
+    });
+
+    let buttonsDelete = document.querySelectorAll('.button-delete');
+
+    $('button.btn-warning').click(function () {
+        console.log($(this).attr('value'));
+        console.log($(this).val());
+    });
 
     $("tr").on("keypress", ".border-none", function (e) {
         if (e.which != 13) BaseRecord.checkPressedKeyNumber(e)
@@ -15,16 +28,23 @@ $(document).ready(function () {
         BaseRecord.pasteBeatyNumber(this);
     });
 
-    $('select[name="kind_reports"]').change(function () {ReportCreationRecord.activateSelect(this)});
+    $('select[name="kind_reports"]').change(function () {
+        ReportCreationRecord.activateSelect(this, existedReports)
+    });
 
-    $('select[name="type_reports"]').change(function () { ReportCreationRecord.reportToCreate.type_reports = this.value});
+    $('select[name="type_reports"]').change(function () {
+        ReportCreationRecord.reportToCreate.type_report_id = this.value
+    });
 
-    $('select[name="periods"]').change(function () { ReportCreationRecord.reportToCreate.periods = this.value});
+    $('select[name="periods"]').change(function () {
+        ReportCreationRecord.reportToCreate.period_id = this.value
+    });
 
-    $('#but').click(function () { ReportCreationRecord.sendCreatedReport()});
+    $('#but').click(function () {
+        ReportCreationRecord.sendCreatedReport()
+    });
 
-    $('#test').click(function () { console.log("hello")});
-
+    buttonsDelete.forEach(button => button.addEventListener('click', ReportCreationRecord.deleteReport));
 
 
 });
@@ -33,21 +53,22 @@ let ReportCreationRecord = {
 
     reportToCreate: {},
 
-    alertSomething: function () {
-        console.log(this.reportToCreate)
+    alertSomething: function (e) {
+        console.log(e, " HELLO")
     },
 
-    activateSelect: function (select) {
-
-        this.reportToCreate.kind_reports = select.value;
+    activateSelect: function (select, existedReports) {
 
         let activeIndex = select.value;
+
+        $('select[name="type_reports"] option:eq(0)').prop('selected', true);
 
         $('select[name="type_reports"]').prop('disabled', false);
 
         $('select[name="type_reports"] option').each((ind, elem) => {
 
-            if ($(elem).attr('data-kind-report') === activeIndex) {
+            if ($(elem).attr('data-kind-report') === activeIndex
+              || !existedReports.includes($(elem).val()) ) {
                 $(elem).attr('style', 'display:block;');
             } else {
                 $(elem).attr('style', 'display:none;');
@@ -56,9 +77,9 @@ let ReportCreationRecord = {
     },
 
     sendCreatedReport: function () {
+        this.reportToCreate.edrpou_id = document.querySelector('#edrpou').value;
         let content = this.reportToCreate;
         let tokenHeader = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        console.log(tokenHeader);
 
         fetch('reports', {
             method: 'post',
@@ -67,14 +88,58 @@ let ReportCreationRecord = {
                 'X-CSRF-TOKEN': tokenHeader,
             },
             body: JSON.stringify(content)
-        }).then((response)=>{
+        }).then((response) => {
             return response.json();
-        }).then((data)=>{
-            console.log(data)
-        }).catch((error)=>{
+        }).then((data) => {
+            this.showReports(data)
+        }).catch((error) => {
             console.log(error)
         })
-    }
+    },
+
+    deleteReport: function (even) {
+        let report = even.target.value;
+        let tokenHeader = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch('reports/' + report, {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': tokenHeader,
+            },
+            body: JSON.stringify(report)
+        }).then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject('something went wrong!')
+            }
+        }).then((data) => {
+            ReportCreationRecord.showReports(data)
+        }).catch((error) => {
+            console.log(error)
+        })
+
+    },
+
+    showReports: function (reports) {
+        let reportsTable = document.querySelector('#reports-table');
+        reportsTable.innerHTML = '';
+        console.log(reportsTable);
+        for (let report in reports) {
+            console.log(reports[report].name);
+            reportsTable.innerHTML += `<tr class="d-flex">
+                    <td width="75%"><a href="">${reports[report].name}</a></td>
+                    <td width="5%">${reports[report].code}</td>
+                    <td width="20%">
+                        <button class="btn btn-warning button-edit" value="${reports[report].id}" type="button">Редагувати
+                        </button>
+                        <button class="btn btn-danger button-delete" value="${reports[report].id}" type="button">Видалити
+                        </button>
+                    </td>
+                </tr>`
+        }
+    },
 
 };
 

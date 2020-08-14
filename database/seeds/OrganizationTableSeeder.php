@@ -19,6 +19,12 @@ class OrganizationTableSeeder extends Seeder
                 'edrpou' => '26614573',
 
             ],
+            [
+
+                'name' => 'A3840',
+                'edrpou' => '26445367',
+
+            ],
         ]);
     }
 }

@@ -20,7 +20,11 @@ class ReportController extends Controller
         $kind_reports = KindReport::get();
         $type_reports = TypeReport::get();
         $periods = Period::where('year', 2020)->get();
-        $reports = Report::where('edrpou_id', 1)->get();
+        $reports = Report::join('type_reports', 'type_reports.id', '=', 'reports.type_report_id')
+            ->orderBy('type_report_id', 'asc')
+            ->select('type_reports.name', 'type_reports.code', 'reports.*')
+            ->where('edrpou_id', 1)
+            ->get();
         return view('reports', compact('type_reports', 'kind_reports', 'reports', 'periods'));
     }
 
@@ -42,7 +46,14 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        return $request['kind_reports'];
+        $params = $request->all();
+        Report::create($params);
+        $reports = Report::join('type_reports', 'type_reports.id', '=', 'reports.type_report_id')
+            ->orderBy('type_report_id', 'asc')
+            ->select('type_reports.name', 'type_reports.code', 'reports.*')
+            ->where('edrpou_id', 1)
+            ->get();
+        return $reports;
     }
 
     /**
@@ -88,6 +99,11 @@ class ReportController extends Controller
     public function destroy(Report $report)
     {
         $report->delete();
-        return redirect()->route('reports.index');
+        $reports = Report::join('type_reports', 'type_reports.id', '=', 'reports.type_report_id')
+            ->orderBy('type_report_id', 'asc')
+            ->select('type_reports.name', 'type_reports.code', 'reports.*')
+            ->where('edrpou_id', 1)
+            ->get();
+        return $reports;
     }
 }

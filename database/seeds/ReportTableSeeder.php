@@ -14,11 +14,6 @@ class ReportTableSeeder extends Seeder
         DB::table('reports')->insert([
 
             [
-                'type_report_id' => '0',
-                'period_id' => '4',
-                'edrpou_id' => '1',
-            ],
-            [
                 'type_report_id' => '1',
                 'period_id' => '4',
                 'edrpou_id' => '1',
@@ -35,6 +30,11 @@ class ReportTableSeeder extends Seeder
             ],
             [
                 'type_report_id' => '4',
+                'period_id' => '4',
+                'edrpou_id' => '1',
+            ],
+            [
+                'type_report_id' => '5',
                 'period_id' => '4',
                 'edrpou_id' => '1',
             ],

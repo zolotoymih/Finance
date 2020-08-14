@@ -147,8 +147,7 @@ body {
 
 }
 .form-style-4 select,
-.form-style-4 input[type=submit],
-.form-style-4 input[type=button]{
+.form-style-4 input[type=submit]{
 	background: #576E86;
 	border: none;
 	padding: 8px 10px 8px 10px;
